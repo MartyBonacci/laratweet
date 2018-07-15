@@ -55777,9 +55777,12 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = {};
+        _this.state = {
+            body: ''
+        };
         // bind
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
 
@@ -55788,6 +55791,13 @@ var App = function (_Component) {
         value: function handleSubmit(e) {
             e.preventDefault();
             console.log('posted');
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(e) {
+            this.setState({
+                body: e.target.value
+            });
         }
     }, {
         key: 'render',
@@ -55818,7 +55828,13 @@ var App = function (_Component) {
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', rows: '5', maxLength: '140', placeholder: 'what\'s up', required: true }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+                                            onChange: this.handleChange,
+                                            className: 'form-control',
+                                            rows: '5',
+                                            maxLength: '140',
+                                            placeholder: 'what\'s up',
+                                            required: true }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Post', className: 'form-control' })
                                     )
                                 )

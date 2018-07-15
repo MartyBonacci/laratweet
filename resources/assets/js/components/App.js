@@ -4,14 +4,24 @@ class App extends Component {
 
     constructor(props) {
         super(props)
-        this.state ={}
+        this.state ={
+            body: ''
+        };
         // bind
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
         console.log('posted');
+    }
+
+    handleChange(e) {
+        this.setState({
+            body: e.target.value
+        })
+
     }
 
     render() {
@@ -25,7 +35,13 @@ class App extends Component {
                             <div className="card-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
-                                    <textarea className="form-control" rows="5" maxLength="140" placeholder="what's up" required/>
+                                    <textarea
+                                        onChange={this.handleChange}
+                                        className="form-control"
+                                        rows="5"
+                                        maxLength="140"
+                                        placeholder="what's up"
+                                        required/>
                                     <input type="submit" value="Post" className="form-control"/>
                                     </div>
                                 </form>
