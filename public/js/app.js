@@ -55772,63 +55772,74 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_Component) {
     _inherits(App, _Component);
 
-    function App() {
+    function App(props) {
         _classCallCheck(this, App);
 
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.state = {};
+        // bind
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
 
     _createClass(App, [{
-        key: "render",
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            console.log('posted');
+        }
+    }, {
+        key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "container" },
+                'div',
+                { className: 'container' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "row justify-content-center" },
+                    'div',
+                    { className: 'row justify-content-center' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "div",
-                            { className: "card" },
+                            'div',
+                            { className: 'card' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "div",
-                                { className: "card-header" },
-                                "Tweet something..."
+                                'div',
+                                { className: 'card-header' },
+                                'Tweet something...'
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "div",
-                                { className: "card-body" },
+                                'div',
+                                { className: 'card-body' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    "form",
-                                    null,
+                                    'form',
+                                    { onSubmit: this.handleSubmit },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        "div",
-                                        { className: "form-group" },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", { className: "form-control", rows: "5", maxLength: "140", placeholder: "what's up", required: true }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Post", className: "form-control" })
+                                        'div',
+                                        { className: 'form-group' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', rows: '5', maxLength: '140', placeholder: 'what\'s up', required: true }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Post', className: 'form-control' })
                                     )
                                 )
                             )
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "div",
-                            { className: "card" },
+                            'div',
+                            { className: 'card' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "div",
-                                { className: "card-header" },
-                                "App Component"
+                                'div',
+                                { className: 'card-header' },
+                                'App Component'
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "div",
-                                { className: "card-body" },
-                                "I'm an app component!"
+                                'div',
+                                { className: 'card-body' },
+                                'I\'m an app component!'
                             )
                         )
                     )
