@@ -14,7 +14,7 @@ class App extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('posted');
+        console.log(this.state.body);
     }
 
     handleChange(e) {

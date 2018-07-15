@@ -55790,7 +55790,7 @@ var App = function (_Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
-            console.log('posted');
+            console.log(this.state.body);
         }
     }, {
         key: 'handleChange',
