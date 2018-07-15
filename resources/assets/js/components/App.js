@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class App extends Component {
 
@@ -14,7 +15,14 @@ class App extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.postData();
         console.log(this.state.body);
+    }
+
+    postData() {
+        axios.post('/posts',{
+            body: this.state.body
+        });
     }
 
     handleChange(e) {
