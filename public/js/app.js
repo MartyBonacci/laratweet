@@ -55800,9 +55800,16 @@ var App = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/posts', {
                 body: this.state.body
             }).then(function (response) {
+                // console
+                console.log(response);
+                // set state
                 _this2.setState({
                     posts: [response.data]
                 });
+            });
+            // clear the state body
+            this.setState({
+                body: ''
             });
         }
     }, {
@@ -55850,6 +55857,7 @@ var App = function (_Component) {
                                         { className: 'form-group' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
                                             onChange: this.handleChange,
+                                            value: this.state.body,
                                             className: 'form-control',
                                             rows: '5',
                                             maxLength: '140',

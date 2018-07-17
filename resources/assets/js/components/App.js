@@ -21,10 +21,17 @@ class App extends Component {
             body: this.state.body
         })
             .then(response => {
+                // console
+                console.log(response);
+                // set state
                 this.setState({
                     posts: [response.data]
                 })
             });
+        // clear the state body
+        this.setState({
+            body: ''
+        })
     }
 
     postData() {
@@ -53,6 +60,7 @@ class App extends Component {
                                     <div className="form-group">
                                     <textarea
                                         onChange={this.handleChange}
+                                        value={this.state.body}
                                         className="form-control"
                                         rows="5"
                                         maxLength="140"
