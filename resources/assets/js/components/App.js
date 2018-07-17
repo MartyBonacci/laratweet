@@ -6,7 +6,8 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            body: ''
+            body: '',
+            posts: []
         };
         // bind
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +19,12 @@ class App extends Component {
         // this.postData();
         axios.post('/posts', {
             body: this.state.body
-        }).then(response => console.log(response));
+        })
+            .then(response => {
+                this.setState({
+                    posts: [response.data]
+                })
+            });
     }
 
     postData() {
@@ -61,10 +67,10 @@ class App extends Component {
 
                     <div className="col-md-6">
                         <div className="card">
-                            <div className="card-header">App Component</div>
+                            <div className="card-header">Recent Tweets</div>
 
                             <div className="card-body">
-                                I'm an app component!
+                                {this.state.posts.map(post => <div>{post.body}</div>)}
                             </div>
                         </div>
                     </div>
