@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
 class App extends Component {
 
     constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             body: ''
         };
         // bind
@@ -15,12 +15,14 @@ class App extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.postData();
-        console.log(this.state.body);
+        // this.postData();
+        axios.post('/posts', {
+            body: this.state.body
+        }).then(response => console.log(response));
     }
 
     postData() {
-        axios.post('/posts',{
+        axios.post('/posts', {
             body: this.state.body
         });
     }
@@ -50,7 +52,7 @@ class App extends Component {
                                         maxLength="140"
                                         placeholder="what's up"
                                         required/>
-                                    <input type="submit" value="Post" className="form-control"/>
+                                        <input type="submit" value="Post" className="form-control"/>
                                     </div>
                                 </form>
                             </div>

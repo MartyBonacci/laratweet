@@ -55793,8 +55793,12 @@ var App = function (_Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
-            this.postData();
-            console.log(this.state.body);
+            // this.postData();
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/posts', {
+                body: this.state.body
+            }).then(function (response) {
+                return console.log(response);
+            });
         }
     }, {
         key: 'postData',
