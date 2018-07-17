@@ -55878,7 +55878,7 @@ var App = function (_Component) {
                                 this.state.posts.map(function (post) {
                                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
-                                        null,
+                                        { key: post.id },
                                         post.body
                                     );
                                 })

@@ -70,7 +70,7 @@ class App extends Component {
                             <div className="card-header">Recent Tweets</div>
 
                             <div className="card-body">
-                                {this.state.posts.map(post => <div>{post.body}</div>)}
+                                {this.state.posts.map(post => <div key={post.id}>{post.body}</div>)}
                             </div>
                         </div>
                     </div>
