@@ -25,7 +25,8 @@ class App extends Component {
                 console.log(response);
                 // set state
                 this.setState({
-                    posts: [response.data]
+                    posts: [...this.state.posts, response.data],
+                    body: ''
                 })
             });
         // clear the state body
