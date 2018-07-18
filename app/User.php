@@ -18,6 +18,8 @@ class User extends Authenticatable
         'username', 'email', 'password',
     ];
 
+    protected $appends = ['avatar'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,5 +31,13 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasMany(Post::class);
+    }
+
+    public function getAvatar() {
+        return 'https://gravatar.com/avatar/'.md5($this->email).'/?s=45&d=mm'
+    }
+
+    public function getAvatarAtribute() {
+        return $this->getAvatar();
     }
 }
