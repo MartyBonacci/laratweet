@@ -55890,6 +55890,7 @@ var App = function (_Component) {
                                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { key: post.id },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: post.user.avatar }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'a',
                                             { href: '#' },

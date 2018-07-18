@@ -37,7 +37,7 @@ class User extends Authenticatable
         return 'https://gravatar.com/avatar/'.md5($this->email).'/?s=45&d=mm';
     }
 
-    public function getAvatarAtribute() {
+    public function getAvatarAttribute() {
         return $this->getAvatar();
     }
 }
