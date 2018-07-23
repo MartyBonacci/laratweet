@@ -17,19 +17,27 @@ class App extends Component {
     }
 
     getPosts() {
-        this.setState({loading:true});
+        // this.setState({loading:true});
         axios.get('/posts').then((
             response
         ) =>
             this.setState({
                 posts:[...response.data.posts],
-                loading: false
+                // loading: false
             })
         );
     }
 
     componentWillMount() {
         this.getPosts();
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(()=> this.getPosts(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     handleSubmit(e) {
