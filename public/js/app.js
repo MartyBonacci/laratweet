@@ -55784,7 +55784,8 @@ var App = function (_Component) {
 
         _this.state = {
             body: '',
-            posts: []
+            posts: [],
+            loading: false
         };
         // bind
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -55793,9 +55794,25 @@ var App = function (_Component) {
     }
 
     _createClass(App, [{
+        key: 'getPosts',
+        value: function getPosts() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/posts').then(function (response) {
+                return _this2.setState({
+                    posts: [].concat(_toConsumableArray(response.data.posts))
+                });
+            });
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.getPosts();
+        }
+    }, {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
-            var _this2 = this;
+            var _this3 = this;
 
             e.preventDefault();
             // this.postData();
@@ -55805,8 +55822,8 @@ var App = function (_Component) {
                 // console
                 console.log(response);
                 // set state
-                _this2.setState({
-                    posts: [].concat(_toConsumableArray(_this2.state.posts), [response.data]),
+                _this3.setState({
+                    posts: [response.data].concat(_toConsumableArray(_this3.state.posts)),
                     body: ''
                 });
             });

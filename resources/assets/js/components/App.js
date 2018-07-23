@@ -7,11 +7,26 @@ class App extends Component {
         super(props)
         this.state = {
             body: '',
-            posts: []
+            posts: [],
+            loading: false
         };
         // bind
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    getPosts() {
+        axios.get('/posts').then((
+            response
+        ) =>
+            this.setState({
+                posts:[...response.data.posts]
+            })
+        );
+    }
+
+    componentWillMount() {
+        this.getPosts();
     }
 
     handleSubmit(e) {
@@ -25,7 +40,7 @@ class App extends Component {
                 console.log(response);
                 // set state
                 this.setState({
-                    posts: [...this.state.posts, response.data],
+                    posts: [response.data, ...this.state.posts],
                     body: ''
                 })
             });
