@@ -13,14 +13,17 @@ class App extends Component {
         // bind
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.renderPosts = this.renderPosts.bind(this);
     }
 
     getPosts() {
+        this.setState({loading:true});
         axios.get('/posts').then((
             response
         ) =>
             this.setState({
-                posts:[...response.data.posts]
+                posts:[...response.data.posts],
+                loading: false
             })
         );
     }
@@ -63,6 +66,24 @@ class App extends Component {
 
     }
 
+    renderPosts() {
+        return this.state.posts.map(post =>
+                <div key={post.id} className="media">
+                    <div className="media-left">
+                        <img src={post.user.avatar} className="media-object mr-2"/>
+                    </div>
+                    <div className="media-body">
+                        <div className="user">
+                            <a href={`/users/${post.user.username}`}>
+                                <b>{post.user.username}</b>
+                            </a>{' '}
+                            - {post.humanCreatedAt}
+                        </div>
+                        <p>{post.body}</p>
+                    </div>
+                </div>
+            )}
+
     render() {
         return (
             <div className="container">
@@ -94,21 +115,7 @@ class App extends Component {
                             <div className="card-header">Recent Tweets</div>
 
                             <div className="card-body">
-                                {this.state.posts.map(post =>
-                                    <div key={post.id} className="media">
-                                        <div className="media-left">
-                                            <img src={post.user.avatar} className="media-object mr-2"/>
-                                        </div>
-                                        <div className="media-body">
-                                            <div className="user">
-                                                <a href={`/users/${post.user.username}`}>
-                                                    <b>{post.user.username}</b>
-                                                </a>
-                                            </div>
-                                            <p>{post.body}</p>
-                                        </div>
-                                    </div>
-                                )}
+                                {this.state.loading ? 'Loading': this.renderPosts()}
                             </div>
                         </div>
                     </div>
