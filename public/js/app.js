@@ -14168,7 +14168,7 @@ window.Pusher = __webpack_require__(44);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: "3f889ca8e1ca787b1857",
+  key: "2dda8f8bae2805a7c080",
   cluster: "us2",
   encrypted: true
 });
@@ -60947,14 +60947,19 @@ var App = function (_Component) {
         value: function componentDidMount() {
             var _this3 = this;
 
-            this.interval = setInterval(function () {
-                return _this3.getPosts();
-            }, 1000);
+            Echo.private('new-post').listen('PostCreated', function (e) {
+                // console.log('from pusher', e.post);
+                // this.setState({posts: [e.post, ...this.state.posts]});
+                if (window.Laravel.user.following.includes(e.post.user_id)) {
+                    _this3.setState({ posts: [e.post].concat(_toConsumableArray(_this3.state.posts)) });
+                }
+            });
+            // this.interval = setInterval(()=> this.getPosts(), 1000);
         }
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-            clearInterval(this.interval);
+            // clearInterval(this.interval);
         }
     }, {
         key: 'handleSubmit',
@@ -60967,7 +60972,7 @@ var App = function (_Component) {
                 body: this.state.body
             }).then(function (response) {
                 // console
-                console.log(response);
+                console.log('from handle submit', response);
                 // set state
                 _this4.setState({
                     posts: [response.data].concat(_toConsumableArray(_this4.state.posts)),
@@ -61069,9 +61074,10 @@ var App = function (_Component) {
                                             rows: '5',
                                             maxLength: '140',
                                             placeholder: 'what\'s up',
-                                            required: true }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Post', className: 'form-control' })
-                                    )
+                                            required: true
+                                        })
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Post', className: 'form-control' })
                                 )
                             )
                         )

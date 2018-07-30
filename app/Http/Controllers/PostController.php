@@ -10,7 +10,7 @@ class PostController extends Controller {
 
     public function index(Request $request, Post $post){
         $allPosts = $post->whereIn('user_id', $request->user()->following()->pluck('users.id')->push($request->user()->id))->with('user');
-        $posts = $allPosts->orderBy('created_at', 'dec')->take(10)->get();
+        $posts = $allPosts->orderBy('created_at', 'dec')->take(5)->get();
         return response()->json([
             'posts' => $posts,
         ]);
@@ -23,7 +23,7 @@ class PostController extends Controller {
             'body' => $request->body,
         ]);
         // broadcast
-        broadcast(new PostCreated($request->user, $createdPost))->toOthers();
+        broadcast(new PostCreated($createdPost, $request->user()))->toOthers();
         // return the response
         return response()->json($post->with('user')->find($createdPost->id));
     }

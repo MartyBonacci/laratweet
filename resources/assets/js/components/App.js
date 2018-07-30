@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class App extends Component {
-
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             body: '',
             posts: [],
@@ -20,11 +19,11 @@ class App extends Component {
         // this.setState({loading:true});
         axios.get('/posts').then((
             response
-        ) =>
-            this.setState({
-                posts:[...response.data.posts],
-                // loading: false
-            })
+            ) =>
+                this.setState({
+                    posts: [...response.data.posts],
+                    // loading: false
+                })
         );
     }
 
@@ -33,11 +32,18 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(()=> this.getPosts(), 1000);
+        Echo.private('new-post').listen('PostCreated', (e) => {
+            // console.log('from pusher', e.post);
+            // this.setState({posts: [e.post, ...this.state.posts]});
+            if(window.Laravel.user.following.includes(e.post.user_id)) {
+                this.setState({posts: [e.post, ...this.state.posts]});
+            }
+        })
+        // this.interval = setInterval(()=> this.getPosts(), 1000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        // clearInterval(this.interval);
     }
 
     handleSubmit(e) {
@@ -48,12 +54,12 @@ class App extends Component {
         })
             .then(response => {
                 // console
-                console.log(response);
+                console.log('from handle submit', response);
                 // set state
                 this.setState({
                     posts: [response.data, ...this.state.posts],
                     body: ''
-                })
+                });
             });
         // clear the state body
         this.setState({
@@ -75,22 +81,23 @@ class App extends Component {
     }
 
     renderPosts() {
-        return this.state.posts.map(post =>
-                <div key={post.id} className="media">
-                    <div className="media-left">
-                        <img src={post.user.avatar} className="media-object mr-2"/>
-                    </div>
-                    <div className="media-body">
-                        <div className="user">
-                            <a href={`/users/${post.user.username}`}>
-                                <b>{post.user.username}</b>
-                            </a>{' '}
-                            - {post.humanCreatedAt}
-                        </div>
-                        <p>{post.body}</p>
-                    </div>
+        return this.state.posts.map(post => (
+            <div key={post.id} className="media">
+                <div className="media-left">
+                    <img src={post.user.avatar} className="media-object mr-2"/>
                 </div>
-            )}
+                <div className="media-body">
+                    <div className="user">
+                        <a href={`/users/${post.user.username}`}>
+                            <b>{post.user.username}</b>
+                        </a>{' '}
+                        - {post.humanCreatedAt}
+                    </div>
+                    <p>{post.body}</p>
+                </div>
+            </div>
+        ));
+    }
 
     render() {
         return (
@@ -110,9 +117,10 @@ class App extends Component {
                                         rows="5"
                                         maxLength="140"
                                         placeholder="what's up"
-                                        required/>
-                                        <input type="submit" value="Post" className="form-control"/>
+                                        required
+                                    />
                                     </div>
+                                    <input type="submit" value="Post" className="form-control"/>
                                 </form>
                             </div>
                         </div>
@@ -121,9 +129,8 @@ class App extends Component {
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-header">Recent Tweets</div>
-
                             <div className="card-body">
-                                {this.state.loading ? 'Loading': this.renderPosts()}
+                                {this.state.loading ? 'Loading' : this.renderPosts()}
                             </div>
                         </div>
                     </div>
