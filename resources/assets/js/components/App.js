@@ -32,13 +32,14 @@ class App extends Component {
     }
 
     componentDidMount() {
-        Echo.private('new-post').listen('PostCreated', (e) => {
-            // console.log('from pusher', e.post);
+        Echo.private('new-post').listen('PostCreated', e => {
+            console.log('from pusher', e.post.user_id);
+			  console.log('window.Laravel.user ', window.Laravel.user);
             // this.setState({posts: [e.post, ...this.state.posts]});
             if(window.Laravel.user.following.includes(e.post.user_id)) {
                 this.setState({posts: [e.post, ...this.state.posts]});
             }
-        })
+        });
         // this.interval = setInterval(()=> this.getPosts(), 1000);
     }
 
