@@ -106,7 +106,7 @@ class App extends Component {
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <div className="card">
-                            <div className="card-header">Tweet something...</div>
+                            <div className="card-header">Tweet something already!!!</div>
 
                             <div className="card-body">
                                 <form onSubmit={this.handleSubmit}>
