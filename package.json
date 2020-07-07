@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "laravel-echo": "^1.6.1",
-        "npm": "^6.13.2",
+        "npm": "^6.14.6",
         "pusher-js": "^4.4.0"
     }
 }
